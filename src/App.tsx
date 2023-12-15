@@ -10,6 +10,7 @@ export const App: FC = () => {
   const firstMessage = 'Has click en los botones para identificar cuantos fichas de cada tipo hay 😁'
   const [resultState, setResultState] = useState(firstMessage)
   const [isLoading, setIsLoading] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
 
   const handleCountBlackChips = () => {
     setCountState("BLACK")
@@ -31,6 +32,7 @@ export const App: FC = () => {
           if (data.type === 'WHITE') message = 'fichas de color blanco ⚪'
 
           setResultState(`Hay ${data.count} ${message}`)
+          setImageUrl(data.imgUrl)
         })
     }
 
@@ -50,7 +52,7 @@ export const App: FC = () => {
           </div>
           : <div className="imageContainer">
 
-            <img className="imageContainer__img" src="./assets/juego-fichas.jpg" alt="juego fichas" />
+            <img className="imageContainer__img" src={`${imageUrl === '' ? './assets/fichas.jpeg' : imageUrl}`} alt="juego fichas" />
           </div>
       }
 
@@ -64,6 +66,7 @@ export const App: FC = () => {
         <button className="button" disabled={isLoading} onClick={handleCountBlackChips}>Contar fichas negras</button>
         <button className="button" disabled={isLoading} onClick={handleCountWhiteChips}>Contar fichas blancas</button>
       </section>
+      {/* <img src="http://127.0.0.1:5000/modificar_imagen" alt="back" /> */}
     </main>
   </div>;
 };

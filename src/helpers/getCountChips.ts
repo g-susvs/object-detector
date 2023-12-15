@@ -1,14 +1,17 @@
 import { CountState } from "../types"
-import { sleep } from "./sleep"
 
 export const getCountChips = async (countType: CountState) => {
 
-    // const resp = await fetch(`host/countchips?count_type=${countType}`,)
-    // const data = await resp.json()
-    await sleep(2)
+    const resp = await fetch(`${import.meta.env.VITE_HOST_SERVER}/countchips?count_type=${countType}`,)
+
+    const countChipsHeader = resp.headers.get('count_chips');
+    const countTypeHeader = resp.headers.get('count_type');
+
+    const imgUrl = resp.url
 
     return {
-        type: countType,
-        count: countType === 'BLACK' ? 5 : 3
+        type: countTypeHeader,
+        count: countChipsHeader,
+        imgUrl
     }
 }
